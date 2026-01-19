@@ -1,25 +1,37 @@
-## Project: Network Traffic Analysis Using Wireshark
+# Network Traffic Analysis Using Wireshark
 
-### Objective
-Capture and analyze network traffic to identify protocols and potential risks.
+## Objective
+The objective of this project is to capture and analyze network traffic in order to understand normal network behavior and identify potential security risks such as unencrypted communication and suspicious traffic patterns.
 
-### Tools Used
+## Tools Used
 - Kali Linux
 - Wireshark
 
-### Steps Taken
-1. Started Wireshark on Kali Linux
-2. Captured traffic on active network interface
-3. Applied filters (tcp, dns, http)
-4. Inspected packets
+## Environment
+- Local network
+- Live packet capture on active network interface
 
-### Findings
-- Observed TCP handshakes
-- Identified DNS requests
-- Detected unencrypted HTTP traffic
+## Methodology
+1. Launched Wireshark on Kali Linux
+2. Selected the active network interface
+3. Captured live network traffic
+4. Applied display filters including:
+   - tcp
+   - udp
+   - dns
+   - http
+5. Inspected packet details and protocol behavior
 
-### Security Impact
-Unencrypted traffic can expose sensitive data.
+## Findings
+- Observed TCP three-way handshake processes
+- Identified DNS queries to external servers
+- Detected HTTP traffic transmitting data in plaintext
+- Verified normal network communication patterns
 
-### Conclusion
-This project demonstrates basic packet analysis and security awareness.
+## Security Implications
+Unencrypted protocols such as HTTP can expose sensitive information to attackers through packet sniffing and man-in-the-middle attacks.
+
+## Conclusion
+This project demonstrates the importance of network traffic monitoring and how
+packet analysis can be used to identify insecure communication and improve
+network security posture.

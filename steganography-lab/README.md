@@ -32,6 +32,8 @@ To embed a file into an image, run the cmd **steghide embed -ef checkpoint.txt -
 what the command does it to embed the file checkpoint.txt into the image file osinmehn.jpg 
 -ef stands for embed file
 -cf stands for cover file
+
+
 <img width="889" height="201" alt="Steghide 1" src="https://github.com/user-attachments/assets/89d277a0-b25d-4c8d-917c-3fef26538e5b" />
 
 
@@ -39,6 +41,8 @@ what the command does it to embed the file checkpoint.txt into the image file os
 To embed a file into an image, run the cmd **steghide extract -sf osinmehn.jpg.**
 what the command does it to extract any hidden file in the osinmehn.jpg file. 
 -sf stands for stego-file i.e file that has been hidden data.
+
+
 <img width="687" height="266" alt="steghide 2" src="https://github.com/user-attachments/assets/ae546597-5e0b-47b7-9928-fe319f272540" />
 
 ---

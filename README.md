@@ -35,7 +35,7 @@ I am a cybersecurity enthusiast with hands-on experience in network analysis, vu
 - Malware Behavior Analysis
 - Hiding files in images and extracting 
 
-## 🔗 Contact
+##  Contact
 - GitHub: https://github.com/Oluwaferanmi-IR
 - LinkedIn: https://www.linkedin.com/in/oluwaferanmi-olajide-02034b20a/
 - X: https://x.com/cyber_G33

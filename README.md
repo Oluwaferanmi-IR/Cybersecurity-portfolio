@@ -1,7 +1,7 @@
 # Cybersecurity-portfolio
 Hands-on cybersecurity labs and projects
 
-**Olajide Oluwaferanmi Marvellous**
+**OLAJIDE OLUWAFERANMI MARVELLOUS**
 ## Cybersecurity Analyst | SOC | Network Security
 
 ## About Me

@@ -13,6 +13,7 @@ I am a cybersecurity enthusiast with hands-on experience in network analysis, vu
 - Vulnerability Scanning (Nmap)
 - Linux Security
 - Incident Response
+- Steganography
 
 ## Tools
 - Kali Linux
@@ -23,6 +24,7 @@ I am a cybersecurity enthusiast with hands-on experience in network analysis, vu
 - XAMPP
 - UFW
 - Virustotal
+- Steghide
 
 ## Projects
 - Network Traffic Analysis using Wireshark
@@ -31,6 +33,7 @@ I am a cybersecurity enthusiast with hands-on experience in network analysis, vu
 - Linux User & Permission Hardening
 - Firewall Configuration & Testing
 - Malware Behavior Analysis
+- Hiding files in images and extracting 
 
 ## 🔗 Contact
 - GitHub: https://github.com/Oluwaferanmi-IR

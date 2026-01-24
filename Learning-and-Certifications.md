@@ -1,4 +1,4 @@
-![NetworkingDevicesandBasicConfigUpdate20260119-31-oa1m7o_page-0001](https://github.com/user-attachments/assets/8d336fe2-f507-4746-954a-c5bacccfa663)## Training Platforms
+## Training Platforms
 - TryHackMe (In Progress)
 - Hack The Box (Beginner)
 

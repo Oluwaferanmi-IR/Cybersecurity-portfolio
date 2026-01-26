@@ -74,17 +74,16 @@ x ----------- execute
   <img width="636" height="449" alt="sudo visudo" src="https://github.com/user-attachments/assets/8fa33dc2-85cb-4f13-ba98-c8dde61c2d8e" />
 
 
-**## Findings**
+## Findings
 - Default permissions may allow unauthorized access
 - Excessive sudo privileges increase risk
 
-**## Security Risks Addressed**
+## Security Risks Addressed
 - Unauthorized file access
 - Excessive user privileges
 - Weak permission configurations
 - Privilege escalation
 - Insider threats
 
- 
-**## Conclusion**
+## Conclusion
 This project demonstrates basic system hardening techniques that reduce the risk of insider threats and compromised user accounts.

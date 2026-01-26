@@ -20,7 +20,7 @@ This project demonstrates practical techniques for ** creating linux users and h
 ## 🔐 Permission Basics
 
 ### File Permission Structure
-```text```
+```text
 -rwxr-x---
 │ │ │ │
 │ │ │ └── Others permissions

@@ -12,7 +12,7 @@ The scan revealed multiple high-risk misconfigurations, including exposed direct
 - **Web Server:** Apache 
 - **Protocol:** HTTP
 - **Attacked Site:** DVWA 
-- **Wordlist:** /usr/share/dirb/wordlists/common.txt`
+
 
 ---
 

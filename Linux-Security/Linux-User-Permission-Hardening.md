@@ -50,7 +50,7 @@ x ----------- execute
   <img width="650" height="93" alt="restrict usermod" src="https://github.com/user-attachments/assets/684ab3c2-560a-4695-9660-f4235b5d018d" 
 />
 - /etc/shadow stores password hashes
-- chmod 640:
+- chmod 640:changes the ways users can interact with the password hashes
      - Owner (root): read/write
      - Group (shadow): read
      - Others: no access
@@ -85,6 +85,6 @@ x ----------- execute
 - Privilege escalation
 - Insider threats
 
-**  
-## Conclusion**
+ 
+**## Conclusion**
 This project demonstrates basic system hardening techniques that reduce the risk of insider threats and compromised user accounts.

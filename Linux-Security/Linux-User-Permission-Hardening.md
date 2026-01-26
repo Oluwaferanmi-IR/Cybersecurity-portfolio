@@ -1,18 +1,31 @@
 # Linux User and Permission Hardening
 
+## Overview
+This project demonstrates practical techniques for ** creating linux users and hardening Linux user permissions** to reduce unauthorized access, privilege abuse, and security misconfigurations. It focuses on applying the **principle of least privilege** to ensure only users with right amount of authorization can access information.
+
 ## Objective
-To strengthen system security by implementing proper user management and file permission controls on a Linux system.
+- Understand Linux file and directory permissions
+- Harden user and group access
+- Restrict unauthorized privilege escalation
+- Secure sensitive system files
+- Demonstrate Linux hardening techniques 
 
 ## Tools Used
 - Linux Command Line Interface
-- Kali Linux / Ubuntu
+- Kali Linux
 
+## 🔐 Permission Basics
+
+### File Permission Structure
+text
+-rwxr-x---
+│ │ │ │
+│ │ │ └── Others permissions
+│ │ └──── Group permissions
+│ └────── User (Owner) permissions
+└──────── File type
 ## Methodology
-1. Created new user accounts
-2. Assigned strong passwords
-3. Configured sudo privileges
-4. Adjusted file and directory permissions using chmod and chown
-5. Removed unnecessary administrative access
+
 
 ## Findings
 - Default permissions may allow unauthorized access

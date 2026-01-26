@@ -30,12 +30,12 @@ The scan revealed multiple high-risk misconfigurations, including exposed direct
   
   <img width="1236" height="691" alt="dirb tool" src="https://github.com/user-attachments/assets/87c19c0d-afba-46de-8a9c-475da4d88096" />
   
-- The scan identified multiple publicly accessible directories:
-**- svn/
+The scan identified multiple publicly accessible directories:
+- svn/
 - config/
 - docs/
 - external/
-- phpmyadmin/**
+- phpmyadmin/
 
 <img width="649" height="515" alt="dirb directories" src="https://github.com/user-attachments/assets/b9b5b2c9-1905-4618-b88f-384bb0bd27ab" />
 
@@ -45,12 +45,6 @@ The scan revealed multiple high-risk misconfigurations, including exposed direct
 - phpmyadmin/ provides direct database access**
 
 ## **Sensitive Files Found**
-
-| File           | HTTP Code |       Risk                    |
-| php.ini        | 200       | Server configuration exposure |
-| phpinfo.php    | 302       | PHP environment disclosure    |
-| server-status  | 200       | Apache internal details       |
-| robots.txt     | 200       | Reveals hidden paths          |
 
 | File            | HTTP Code | Risk                          |
 | --------------- | --------- | ----------------------------- |

@@ -17,13 +17,17 @@ This project demonstrates practical techniques for ** creating linux users and h
 ## 🔐 Permission Basics
 
 ### File Permission Structure
-text
+## 🔐 Permission Basics
+
+### File Permission Structure
+```text```
 -rwxr-x---
 │ │ │ │
 │ │ │ └── Others permissions
 │ │ └──── Group permissions
 │ └────── User (Owner) permissions
-└──────── File type
+└──────── File type```
+
 ## Methodology
 
 

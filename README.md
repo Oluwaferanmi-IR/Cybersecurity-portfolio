@@ -40,3 +40,6 @@ I am a cybersecurity enthusiast with hands-on experience in network analysis, vu
 - LinkedIn: https://www.linkedin.com/in/oluwaferanmi-olajide-02034b20a/
 - X: https://x.com/cyber_G33
 - Whatsapp: +2348133745208
+- CV
+  ![NEW RESUME_page-0001](https://github.com/user-attachments/assets/efc476b5-928e-4e0e-9670-002de84c8e54)
+

@@ -26,11 +26,10 @@ The scan revealed multiple high-risk misconfigurations, including exposed direct
 
 ##  Methodology
 
-- DIRB was executed using its default wordlist on the test website: **dirb http://10.199.181.232**
+- DIRB was executed using its default wordlist on the test website: **dirb http://10.199.181.232** It generated 4,612 test words and began scanning the target for accessible directories and files
   
   <img width="1236" height="691" alt="dirb tool" src="https://github.com/user-attachments/assets/87c19c0d-afba-46de-8a9c-475da4d88096" />
   
-- DIRB generated 4,612 test words and began scanning the target for accessible directories and files.
 - The scan identified multiple publicly accessible directories:
 **svn/
 config/

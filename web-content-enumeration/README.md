@@ -40,9 +40,9 @@ The scan identified multiple publicly accessible directories:
 <img width="649" height="515" alt="dirb directories" src="https://github.com/user-attachments/assets/b9b5b2c9-1905-4618-b88f-384bb0bd27ab" />
 
  Risk result from the scan:
-**- svn/ may expose source code
+- svn/ may expose source code
 - config/ may contain credentials or secrets
-- phpmyadmin/ provides direct database access**
+- phpmyadmin/ provides direct database access
 
 ## **Sensitive Files Found**
 

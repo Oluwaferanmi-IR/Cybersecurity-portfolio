@@ -1,7 +1,7 @@
 # Linux User and Permission Hardening
 
 ## Overview
-This project demonstrates practical techniques for ** creating linux users and hardening Linux user permissions** to reduce unauthorized access, privilege abuse, and security misconfigurations. It focuses on applying the **principle of least privilege** to ensure only users with right amount of authorization can access information.
+This project demonstrates practical techniques for creating linux users and hardening Linux user permissions to reduce unauthorized access, privilege abuse, and security misconfigurations. It focuses on applying the **principle of least privilege** to ensure only users with right amount of authorization can access information.
 
 ## Objective
 - Understand Linux file and directory permissions
@@ -29,13 +29,18 @@ w ----------- write
 x ----------- execute
 
 ## Methodology
-**- Creating a new user**
+**- Creating a new user** 
+ To create new user, we run `sudo useradd Marvel`
 
 <img width="641" height="126" alt="new user" src="https://github.com/user-attachments/assets/339cc50e-ef9a-435c-8e90-b76ac20139cc" />
 
 **- Creating a password for the new user**
+Adding a password to the new user we run `sudo passwd Marvel`
 
   <img width="648" height="222" alt="new user password" src="https://github.com/user-attachments/assets/2af265eb-c73e-40f3-84be-b2204b4b172f" />
+
+
+ - Randomly creating new user doesn't give the new user sudo privilege just a random privilege. To give sudo privileges to the new user we run `sudo usermod -aG sudo Marvel` 
 
 **- Remove unnecessary sudo access**
 

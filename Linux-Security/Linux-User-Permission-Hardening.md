@@ -90,5 +90,3 @@ Adding a password to the new user we run `sudo passwd Marvel`
 - Privilege escalation
 - Insider threats
 
-## Conclusion
-This project demonstrates basic system hardening techniques that reduce the risk of insider threats and compromised user accounts.

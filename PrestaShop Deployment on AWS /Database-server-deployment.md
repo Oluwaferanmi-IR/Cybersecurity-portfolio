@@ -1,4 +1,4 @@
-<img width="1129" height="674" alt="Screenshot 2026-02-18 203146" src="https://github.com/user-attachments/assets/4ce33e82-5568-4028-98ee-8b46674f1546" />### DATABASE SERVER DEPLOYMENT
+### DATABASE SERVER DEPLOYMENT
 ---
 
 ### METHODOLOGY USED

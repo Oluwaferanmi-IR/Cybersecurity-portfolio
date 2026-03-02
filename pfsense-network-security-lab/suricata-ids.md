@@ -1,4 +1,5 @@
 # IDS/IPS Implementation with Suricata
+Suricata is an open-source Network Intrusion Detection System (NIDS) / Intrusion Prevention System (IPS) tool. It’s a tool that watches network traffics to detect / block malicious activity and threats.
 
 ## Objective
 Detect and analyze malicious network activity using an intrusion detection system.

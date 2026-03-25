@@ -45,7 +45,7 @@ Rule 3: HTTPS, Port 443, Source: Anywhere (0.0.0.0/0)
 
       <img width="1086" height="553" alt="Screenshot 2026-02-19 012007" src="https://github.com/user-attachments/assets/0c61df82-64ce-472b-88f4-90aa05108c57" />
 
-8.  Enable and start Apache: `sudo systemctl enable apache2 sudo systemctl start apache2`
+8.  Enable and start Apache: `sudo systemctl enable apache2` `sudo systemctl start apache2`
 9.  Check apache status: “sudo systemctl status apache2”
 
     <img width="1077" height="412" alt="Screenshot 2026-02-19 012107" src="https://github.com/user-attachments/assets/a5061379-3290-4a69-977f-f927b160a729" />
@@ -59,6 +59,8 @@ Rule 3: HTTPS, Port 443, Source: Anywhere (0.0.0.0/0)
 sudo apt install php libapache2-mod-php php-mysql php-curl php-gd
 php-intl php-mbstring php-xml php-zip php-bcmath php-json php-soap unzip -y”
 ```
+`sudo apt install php-xml php-zip php-mbstring php-curl php-gd php-mysql -y`
+
 12. Verify PHP installation: `Php -v`
 13. Configure Apache for PrestaShop
        
@@ -74,7 +76,7 @@ php-intl php-mbstring php-xml php-zip php-bcmath php-json php-soap unzip -y”
     - Go to web directory: cd /var/www/html
     - Download PrestaShop: `sudo wget https://github.com/PrestaShop/PrestaShop/releases/download/8.1.7/prestashop_8.1.7.zip`
     - Unzip main file : `sudo unzip prestashop_8.1.7.zip`
-    - If it returns an error saying “zip command not found,” that means the zip tool is missing. Install the zip tools: `sudo apt install zip tools`
+    - If it returns an error saying “zip command not found,” that means the zip tool is missing. Install the zip tools: `sudo apt install zip unzip -y`
     - Unzip inner prestashop.zip: `sudo unzip prestashop.zip`
     - When prompted: replace index.php? [y]es, [n]o, [A]ll, [N]one, [r]ename: A # Type A and press Enter
     - Remove Apache default page: `sudo rm index.htmL`

@@ -49,7 +49,9 @@
     - Update package list: `sudo apt update`
     - Upgrade existing packages:`sudo apt upgrade -y`
     - Install MySQL Server: `sudo apt install mysql-server -y`
+    - start MySQL `sudo systemctl start mysql`
     - Verify MySQL is running:`sudo systemctl status mysql`
+    - Do secure installation `sudo mysql_secure_installation`
     - Answer the prompts: Validate Password Component? N (or Y if you want strong password enforcement)
     -  Remove anonymous users? Y
     -  Disallow root login remotely? N (remote access is needed)
@@ -76,6 +78,7 @@
 
       - `CREATE DATABASE prestashop;`
       - `CREATE USER 'prestashoptest'@'%' IDENTIFIED BY '<put password here>'; `
+      - `SELECT user, host FROM mysql.user;` to check if the user was successfully created
       - `GRANT ALL PRIVILEGES ON prestashop. * TO prestashoptest’@'%';` - This is trying to give all rights on the database to the user 
       - `FLUSH PRIVILEGES;`: Applies the changes immediately.
       - `SHOW DATABASES;`

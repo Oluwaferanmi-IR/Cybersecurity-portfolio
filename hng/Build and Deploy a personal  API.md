@@ -2,7 +2,7 @@
 ---
 
 ## PROJECT OVERVIEW
-In the previous proect (server deployment), we provisioned a linux server and configured nginx. Now, we will write a small API and deploy it. what this project aim to achieve include:
+In the previous proect (server setup), we provisioned a server and configured nginx. Now, we will write a small API and deploy it. what this project aim to achieve include:
 
 1. Build the API Write an API with the following three endpoints:
 

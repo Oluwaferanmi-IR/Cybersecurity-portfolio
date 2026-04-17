@@ -1,0 +1,11 @@
+## BUILDING AND DEPLOYING A PERSONAL API
+---
+
+## PROJECT OVERVIEW
+In the previous proect (server deployment), we provisioned a linux server and configured nginx. Now, we will write a small API and deploy it. what this project aim to achieve include:
+
+1. Build the API Write an API with the following three endpoints:
+GET / : returns the following JSON response exactly:
+{ "message": "API is running" } GET /health : returns the following JSON response exactly:
+{ "message": "healthy" } GET /me : returns the following JSON response exactly:
+{ "name": "Your Full Name", "email": "you@example.com", "github": "https://github.com/yourusername" } All three endpoints must return Content-Type: application/json, an HTTP status code of 200, and respond within 500ms.

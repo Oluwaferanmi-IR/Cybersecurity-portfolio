@@ -53,3 +53,65 @@ What You Must Do
 - A README.md that explains how to bring the entire stack up on a clean machine from scratch—list prerequisites, all commands, and what a successful startup looks like
 - A FIXES.md documenting every bug found—file, line number, what it was, and how you fixed it
 - A .env.example committed with placeholder values for every required variable
+
+## Objective
+To debug, containerize, and orchestrate a distributed application using Docker and Docker Compose, while building a CI/CD pipeline that enforces testing, security scanning, and zero-downtime deployments.
+
+## step-by-step guide
+1. download and install docker `https://www.docker.com/products/docker-desktop/`
+
+   - if you get an error saying the program need elevated permkssion, open cmd
+   - take ownership of the folder `takeown /f "C:\ProgramData\DockerDesktop" /r /d y`
+   - Guve yourself full permission `icacls "C:\ProgramData\DockerDesktop" /grant Administrators:F /t`
+   -  Delete the folder completely `rmdir /s /q "C:\ProgramData\DockerDesktop"`
+   -  go to Win + R type `c:\programdata`
+   -  look for dockerdestop
+   -  delete the folder
+   -  run the docker installer again and follow the default prompt
+     <img width="703" height="485" alt="Screenshot 2026-04-22 101107" src="https://github.com/user-attachments/assets/d90c9c25-762a-4438-a4af-69d708898461" />
+
+2. Install WSL (window subsystem for linux)
+
+   - open powershell as administrator
+   - install wsl `wsl --install`
+   - if it says already exists, just download the ubuntu distro `wsl --install -d ubuntu`
+   - create username
+   - create email
+
+3. Open the ubuntu
+4. check if the following are properly installed by checking their versions and install any that is not installed
+
+   - `docker --version`
+   - `docker compose version`
+   - `node --version`
+   - `python3 --version`
+   - `git --version`
+
+   <img width="353" height="185" alt="Screenshot 2026-04-22 125622" src="https://github.com/user-attachments/assets/fe23b610-34a1-41b4-9eee-18cb55f1ee8f" />
+
+5. Fork the github repository we are supposed to check for bugs
+
+   - Go to https://github.com/chukwukelu2023/hng14-stage2-devops
+   - Click "Fork" at the top right
+   - Click "Create fork"
+  <img width="1098" height="483" alt="Screenshot 2026-04-22 104306" src="https://github.com/user-attachments/assets/a6430155-79d7-4d5a-b694-fd0bd90b539d" />
+
+6. Clone the repository on your laptop
+
+   - cloning to desktop `cd /mnt/c/users/user/desktop`
+   - clone the forked repo `git clone https://github.com/oluwaferanmi-IR/hng14-stage2-devops`
+   - go into the folder `cd hn14-stage2-devops`
+  <img width="981" height="153" alt="Screenshot 2026-04-22 130812" src="https://github.com/user-attachments/assets/68970db9-5cd4-4608-9d9f-bcdb8a304afc" />
+
+7. Open code in vs code `code .`
+   <img width="1123" height="530" alt="image" src="https://github.com/user-attachments/assets/d8813704-86df-4677-82a9-d1232034bb70" />
+
+8. Create working branch `git checkout -b feat/containerize-microservices`
+9. verify `git branch` it should show `* feat/containerize-microservices
+  main`
+
+
+
+
+
+

@@ -96,18 +96,23 @@ To debug, containerize, and orchestrate a distributed application using Docker a
    - Click "Create fork"
   <img width="1098" height="483" alt="Screenshot 2026-04-22 104306" src="https://github.com/user-attachments/assets/a6430155-79d7-4d5a-b694-fd0bd90b539d" />
 
-6. Clone the repository on your laptop
+6. configure your github
+
+    - `git config --global user.name "Oluwaferanmi-IR` (github username)
+    - `git config --global user.email olajide****.com` (github email)
+
+7. Clone the repository on your laptop
 
    - cloning to desktop `cd /mnt/c/users/user/desktop`
    - clone the forked repo `git clone https://github.com/oluwaferanmi-IR/hng14-stage2-devops`
    - go into the folder `cd hn14-stage2-devops`
   <img width="981" height="153" alt="Screenshot 2026-04-22 130812" src="https://github.com/user-attachments/assets/68970db9-5cd4-4608-9d9f-bcdb8a304afc" />
 
-7. Open code in vs code `code .`
+8. Open code in vs code `code .`
    <img width="1123" height="530" alt="image" src="https://github.com/user-attachments/assets/d8813704-86df-4677-82a9-d1232034bb70" />
 
-8. Create working branch `git checkout -b feat/containerize-microservices`
-9. verify `git branch` it should show `* feat/containerize-microservices
+9. Create working branch `git checkout -b feat/containerize-microservices`
+10. verify `git branch` it should show `* feat/containerize-microservices
   main`
 
 

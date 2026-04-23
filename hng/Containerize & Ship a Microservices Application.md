@@ -422,7 +422,7 @@ HEALTHCHECK --interval=30s --timeout=10s \
 
 CMD ["node", "app.js"]
 ```
-23.  Write docker-compose.yml. Create docker-compose.yml in the root folder:
+23.  Write docker-compose.yml. Create docker-compose.yml in the root folder: 
 ```
 version: '3.8'
 
@@ -544,7 +544,614 @@ networks:
     - docker compose up --build
     - Wait for all services to start. Then open your browser: `http://localhost:3000`
 
+<img width="1123" height="284" alt="Screenshot 2026-04-23 012243" src="https://github.com/user-attachments/assets/3727ea43-f8c6-41e2-9807-675f95ed69bd" />
 
+25. Writet unit tests
+
+    - install test dependencies
+
+      - in a second wsl `cd /mnt/c/users/user/desktop`
+      - `pip3 install pytest pytest-cov httpx fastapi`
+      - if pip3 is not installed `sudo apt install pip3 -y`
+
+    - create test file `nano api/test_main.py` write this into the file
+```
+import pytest
+from unittest.mock import patch, MagicMock
+from fastapi.testclient import TestClient
+from main import app
+
+client = TestClient(app)
+
+
+# ─────────────────────────────────────────
+# Mock Redis so tests don't need real Redis
+# ─────────────────────────────────────────
+@pytest.fixture
+def mock_redis():
+    with patch('main.r') as mock:
+        yield mock
+
+
+# ─────────────────────────────────────────
+# TEST 1 - Health endpoint
+# ─────────────────────────────────────────
+def test_health_returns_200():
+    """Health endpoint must return 200"""
+    response = client.get("/health")
+    assert response.status_code == 200
+
+
+# ─────────────────────────────────────────
+# TEST 2 - Health endpoint returns correct body
+# ─────────────────────────────────────────
+def test_health_returns_status_ok():
+    """Health endpoint must return status ok"""
+    response = client.get("/health")
+    data = response.json()
+    assert data["status"] == "ok"
+
+
+# ─────────────────────────────────────────
+# TEST 3 - Create job returns job_id
+# ─────────────────────────────────────────
+def test_create_job_returns_job_id(mock_redis):
+    """Creating a job must return a job_id"""
+    mock_redis.lpush = MagicMock(return_value=1)
+    mock_redis.hset = MagicMock(return_value=1)
+    response = client.post("/jobs")
+    assert response.status_code == 200
+    data = response.json()
+    assert "job_id" in data
+
+
+# ─────────────────────────────────────────
+# TEST 4 - Create job returns 200
+# ─────────────────────────────────────────
+def test_create_job_returns_200(mock_redis):
+    """Creating a job must return HTTP 200"""
+    mock_redis.lpush = MagicMock(return_value=1)
+    mock_redis.hset = MagicMock(return_value=1)
+    response = client.post("/jobs")
+    assert response.status_code == 200
+
+
+# ─────────────────────────────────────────
+# TEST 5 - Get job not found returns 404
+# ─────────────────────────────────────────
+def test_get_job_not_found_returns_404(mock_redis):
+    """Getting non-existent job must return 404"""
+    mock_redis.hget = MagicMock(return_value=None)
+    response = client.get("/jobs/nonexistent-id")
+    assert response.status_code == 404
+
+
+# ─────────────────────────────────────────
+# TEST 6 - Get existing job returns status
+# ─────────────────────────────────────────
+def test_get_existing_job_returns_status(mock_redis):
+    """Getting existing job must return job_id and status"""
+    mock_redis.hget = MagicMock(return_value=b"queued")
+    response = client.get("/jobs/some-job-id")
+    assert response.status_code == 200
+    data = response.json()
+    assert "job_id" in data
+    assert "status" in data
+    assert data["status"] == "queued"
+```
+26. run test locally
+
+    - `cd api`
+    - pip3 install -r requirements.txt`
+    - `pytest test_main.py -v` you should see :
+<img width="1082" height="302" alt="Screenshot 2026-04-23 013437" src="https://github.com/user-attachments/assets/3570a89d-df32-4b75-af78-bba1bd120a6c" />
+
+27. go back to root `cd ..`
+28. Write the github actions pipeline
+
+    - create a workflow folder `mkdir -p .github/workflow`
+    - create pipelinefile : `nano .github/workflows/pipeline.yml`
+```
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, feat/containerize-microservices ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  # ─────────────────────────────────────────
+  # STAGE 1 - LINT
+  # ─────────────────────────────────────────
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install flake8
+        run: pip install flake8
+
+      - name: Lint API Python code
+        run: |
+          flake8 api/ \
+            --max-line-length=100 \
+            --extend-ignore=W291,W292,W293,W391 \
+            --exclude=__pycache__
+
+      - name: Lint Worker Python code
+        run: |
+          flake8 worker/ \
+            --max-line-length=100 \
+            --extend-ignore=W291,W292,W293,W391 \
+            --exclude=__pycache__
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        run: cd frontend && npm ci
+
+      - name: Lint JavaScript
+        run: cd frontend && npm run lint || true
+
+      - name: Install hadolint
+        run: |
+          wget -O hadolint \
+            https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          chmod +x hadolint
+          sudo mv hadolint /usr/local/bin/
+
+      - name: Lint Dockerfiles
+        run: |
+          hadolint api/Dockerfile
+          hadolint worker/Dockerfile
+          hadolint frontend/Dockerfile
+
+  # ─────────────────────────────────────────
+  # STAGE 2 - TEST
+  # ─────────────────────────────────────────
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r api/requirements.txt
+          pip install pytest pytest-cov httpx
+
+      - name: Run tests with coverage
+        run: |
+          cd api
+          pytest test_main.py -v \
+            --cov=. \
+            --cov-report=xml:coverage.xml \
+            --cov-report=term-missing
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: api/coverage.xml
+
+  # ─────────────────────────────────────────
+  # STAGE 3 - BUILD
+  # ─────────────────────────────────────────
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: test
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: network=host
+
+      - name: Get git SHA
+        id: sha
+        run: echo "sha=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
+
+      - name: Build and push API image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./api
+          push: true
+          tags: |
+            localhost:5000/api:${{ steps.sha.outputs.sha }}
+            localhost:5000/api:latest
+          network: host
+
+      - name: Build and push Worker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./worker
+          push: true
+          tags: |
+            localhost:5000/worker:${{ steps.sha.outputs.sha }}
+            localhost:5000/worker:latest
+          network: host
+
+      - name: Build and push Frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            localhost:5000/frontend:${{ steps.sha.outputs.sha }}
+            localhost:5000/frontend:latest
+          network: host
+
+  # ─────────────────────────────────────────
+  # STAGE 4 - SECURITY SCAN
+  # ─────────────────────────────────────────
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build images for scanning
+        run: |
+          docker build -t api:latest ./api
+          docker build -t worker:latest ./worker
+          docker build -t frontend:latest ./frontend
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get install -y wget apt-transport-https gnupg
+          wget -qO - \
+            https://aquasecurity.github.io/trivy-repo/deb/public.key \
+            | sudo apt-key add -
+          echo "deb https://aquasecurity.github.io/trivy-repo/deb generic main" \
+            | sudo tee /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install -y trivy
+
+      - name: Scan API image
+        run: |
+          trivy image \
+            --exit-code 1 \
+            --severity CRITICAL \
+            --ignore-unfixed \
+            --format sarif \
+            --output api-scan.sarif \
+            api:latest
+
+      - name: Scan Worker image
+        run: |
+          trivy image \
+            --exit-code 1 \
+            --severity CRITICAL \
+            --ignore-unfixed \
+            --format sarif \
+            --output worker-scan.sarif \
+            worker:latest
+
+      - name: Scan Frontend image
+        run: |
+          trivy image \
+            --exit-code 1 \
+            --severity CRITICAL \
+            --ignore-unfixed \
+            --format sarif \
+            --output frontend-scan.sarif \
+            frontend:latest
+
+      - name: Upload scan results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-results
+          path: "*.sarif"
+
+  # ─────────────────────────────────────────
+  # STAGE 5 - INTEGRATION TEST
+  # ─────────────────────────────────────────
+  integration:
+    name: Integration Test
+    runs-on: ubuntu-latest
+    needs: security
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          REDIS_HOST=redis
+          REDIS_PORT=6379
+          REDIS_PASSWORD=testpassword
+          API_HOST=0.0.0.0
+          API_PORT=8000
+          PORT=3000
+          API_URL=http://api:8000
+          APP_ENV=development
+          EOF
+
+      - name: Start full stack
+        run: docker compose up --build -d
+
+      - name: Wait for all services to be healthy
+        run: |
+          echo "Waiting for services to be healthy..."
+          sleep 40
+          docker compose ps
+
+      - name: Submit a test job
+        run: |
+          response=$(curl -s -X POST \
+            http://localhost:3000/submit \
+            -H "Content-Type: application/json")
+          echo "Response: $response"
+          job_id=$(echo $response | python3 -c \
+            "import sys,json; \
+            print(json.load(sys.stdin)['job_id'])")
+          echo "JOB_ID=$job_id" >> $GITHUB_ENV
+          echo "Job ID: $job_id"
+
+      - name: Poll until job completes
+        run: |
+          max=20
+          count=0
+          while [ $count -lt $max ]; do
+            response=$(curl -s \
+              http://localhost:3000/status/$JOB_ID)
+            echo "Response: $response"
+            status=$(echo $response | python3 -c \
+              "import sys,json; \
+              print(json.load(sys.stdin).get('status','unknown'))")
+            echo "Attempt $count: status=$status"
+            if [ "$status" = "completed" ]; then
+              echo "Job completed successfully"
+              exit 0
+            fi
+            count=$((count + 1))
+            sleep 5
+          done
+          echo "Job did not complete in time"
+          exit 1
+
+      - name: Tear down stack
+        if: always()
+        run: docker compose down -v
+
+  # ─────────────────────────────────────────
+  # STAGE 6 - DEPLOY
+  # ─────────────────────────────────────────
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: integration
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env for deploy
+        run: |
+          cat > .env << EOF
+          REDIS_HOST=redis
+          REDIS_PORT=6379
+          REDIS_PASSWORD=testpassword
+          API_HOST=0.0.0.0
+          API_PORT=8000
+          PORT=3000
+          API_URL=http://api:8000
+          APP_ENV=production
+          EOF
+
+      - name: Build images
+        run: docker compose build
+
+      - name: Rolling update
+        run: |
+          docker compose up -d redis
+          sleep 10
+
+          docker compose up -d api
+          timeout=60
+          elapsed=0
+          while [ $elapsed -lt $timeout ]; do
+            health=$(docker inspect \
+              --format='{{.State.Health.Status}}' \
+              api 2>/dev/null || echo "none")
+            echo "API health: $health"
+            if [ "$health" = "healthy" ]; then
+              echo "API is healthy"
+              break
+            fi
+            sleep 5
+            elapsed=$((elapsed + 5))
+          done
+          if [ $elapsed -ge $timeout ]; then
+            echo "API health check failed - aborting deploy"
+            exit 1
+          fi
+
+          docker compose up -d worker
+          docker compose up -d frontend
+
+          echo "Deploy successful"
+          docker compose ps
+```
+29. Write README.md `nano README.md`
+```
+# HNG DevOps Stage 2 — Containerized Microservices
+
+## Overview
+A job processing system made up of four services
+containerized with Docker and deployed via a full
+CI/CD pipeline using GitHub Actions.
+
+## Architecture
+``
+Frontend (Node.js:3000)
+    ↓
+API (FastAPI:8000)
+    ↓
+Redis (internal only)
+    ↓
+Worker (Python)
+``
+
+## Prerequisites
+- Docker Desktop or Docker Engine installed
+- Docker Compose v2+
+- Git
+
+## How to Run on a Clean Machine
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Oluwaferanmi-IR/hng14-stage2-devops
+cd hng14-stage2-devops
+``
+
+### 2. Set up environment variables
+```bash
+cp .env.example .env
+``
+Edit `.env` and fill in real values.
+
+### 3. Start the full stack
+```bash
+docker compose up --build
+``
+
+### 4. What successful startup looks like
+``
+redis     | Ready to accept connections
+api       | Uvicorn running on http://0.0.0.0:8000
+worker    | Processing...
+frontend  | Frontend running on port 3000
+``
+
+All four containers show as healthy:
+```bash
+docker compose ps
+``
+
+### 5. Access the application
+Open your browser and go to:
+``
+http://localhost:3000
+``
+
+### 6. Stop the stack
+```bash
+docker compose down
+``
+
+## Services
+
+| Service  | Port | Description |
+|---|---|---|
+| Frontend | 3000 | User interface |
+| API | 8000 | REST API (internal) |
+| Worker | - | Background processor |
+| Redis | - | Job queue (internal only) |
+
+## CI/CD Pipeline
+
+Pipeline runs automatically on every push:
+
+``
+lint → test → build → security scan → integration test → deploy
+``
+
+- **Lint:** flake8, eslint, hadolint
+- **Test:** pytest with Redis mocked, coverage report uploaded
+- **Build:** Images tagged with git SHA and latest
+- **Security:** Trivy scans all images for CRITICAL vulnerabilities
+- **Integration:** Full stack spun up, job submitted and polled
+- **Deploy:** Rolling update with health check verification
+
+## Environment Variables
+
+See `.env.example` for all required variables.
+
+## Bugs Fixed
+
+See `FIXES.md` for a full list of all bugs found
+and fixed in the starter code.
+
+## Author
+Oluwaferanmiwhitehat
+```
+
+30. Commit everything
+
+    - docker compose down
+    - git add api/main.py
+    - git commit -m "fix: resolve hardcoded redis host missing health endpoint and wrong 404 status in api"
+    - git add worker/worker.py
+    - git commit -m "fix: resolve hardcoded redis host unused import and missing error handling in worker"
+    - git add frontend/app.js frontend/package.json frontend/package-lock.json
+    - git commit -m "fix: resolve hardcoded api url missing health endpoint and wrong filename in frontend"
+    - git add api/Dockerfile
+    - git commit -m "feat: add multi-stage production Dockerfile for api service"
+    - git add worker/Dockerfile
+    - git commit -m "feat: add multi-stage production Dockerfile for worker service"
+    - git add frontend/Dockerfile
+    - git commit -m "feat: add multi-stage production Dockerfile for frontend service"
+    - git add docker-compose.yml
+    - git commit -m "feat: add docker-compose with named networks health checks and resource limits"
+    - git add api/test_main.py
+    - git commit -m "test: add six unit tests for api with redis mocked"
+    - git add .github/workflows/pipeline.yml
+    - git commit -m "ci: add full cicd pipeline with lint test build scan integration and deploy stages"
+    - git add FIXES.md
+    - git commit -m "docs: document all bugs found and fixed in starter code"
+    - git add README.md
+    - git commit -m "docs: add readme with setup instructions and architecture overview"
+    - git add .env.example
+    - git commit -m "chore: add env example with placeholder values for all required variables"
+    - Verify all commits look corrent: `git log --oneline` You should see all your commits listed with proper messages.
+
+31. Push to github
+
+     - Push your branc `git push origin feat/containerize-microservices`
+     - If aasked for password, go to github and generate classic token
+32. merge your branch to main repo
+
+    - `git checkout main`
+    - `git merge feat/containerize-microservices`
+    - `git push origin main`
+    - you should see all your files in your main branch now
+      <img width="763" height="587" alt="Screenshot 2026-04-23 022032" src="https://github.com/user-attachments/assets/51c953e6-ef67-4edc-8b05-bba2b9312427" />
+
+    - go to action and run all job till deployment stage without any erroe
+<img width="1120" height="373" alt="Screenshot 2026-04-23 025748" src="https://github.com/user-attachments/assets/10d65922-d865-4cb5-b4e8-306d63bf42f9" />
 
 
 

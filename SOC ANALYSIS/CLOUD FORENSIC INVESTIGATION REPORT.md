@@ -159,3 +159,18 @@ Which specific file was downloaded from S3? Provide the Bucket name and the File
 |Key Deactivated| AKIA_DEV_PROD_9982 (set to Inactive) 
 |Executed By| AKIA_FAKE_BACKDOOR_KEY_7721 (backdoor key) 
 |Source IP| 45.33.10.11 
+
+### Immediate Actions to take
+
+|Action|Reason|
+|------|------|
+|Disable AKIA_DEV_PROD_9982 and AKIA_FAKE_BACKDOOR_KEY_7721 immediately. |Both keys are confirmed attackercontrolled. 
+| Delete IAM user support_service_backup and all associated keys. | Attacker-created backdoor must be fullyremoved. 
+| Rotate database password (db_pass: P@ssw0rd_Cloud_2026!) on all systems. | Credential was exfiltrated and is now in attacker hands. 
+|Revoke all inline and attached policies added to dev_user_musa. | Account was escalated to full admin by attacker. 
+|Block IP addresses 190.45.112.3 and 45.33.10.11 | Prevent re-entry via same IPs. 
+| Audit ALL IAM users for unexpected AdministratorAccess or wildcard policies. | Attacker may have escalated other accounts not visible in this log window. 
+|Notify legal and compliance teams about ceo_personal_taxes_2025.pdf exfiltration. |Personal financial data breach likely has regulatory reporting obligations. 
+| Enable CloudTrail log file validation and restrict StopLogging permissions. |The attacker attempted to disable logging — this must be hardened. 
+| Rotate all IAM access keys in the account as a precaution. | Assume the attacker may have enumerated additional keys during reconnaissance. 
+|Enable AWS GuardDuty and Security Hub if not already active. |These services would have flagged this activity in real time. 

@@ -1,45 +1,49 @@
-# Cybersecurity-portfolio
-Hands-on cybersecurity labs and projects
+## Hi, I'm Olajide Oluwaferanmi Marvellous 👋
+SOC Analyst | Cybersecurity Analyst | IT support Personnel
 
-**OLAJIDE OLUWAFERANMI MARVELLOUS**
-## Cybersecurity Analyst | SOC | Network Security
+Lagos, Nigeria 🇳🇬
 
-## About Me
-I am a cybersecurity enthusiast with hands-on experience in network analysis, vulnerability scanning, and incident response. This repository showcases practical cybersecurity projects and labs. I am an ambitious individual with a passion for learning and creativity and strong interest in developing skills in the areas of accounting, cyberseurtiy and business development. Proven track record of success with excellent communication and organizational skills. Adaptable professional with proven knowledge of leadership, problem solving, and prioritization.  
+---
 
-## Skills
-- Network Security
-- Traffic Analysis (Wireshark)
-- Vulnerability Scanning (Nmap)
-- Linux Security
-- Incident Response
-- Steganography
+### About Me
 
-## Tools
-- Kali Linux
-- Virtual box
-- Wireshark
-- Nmap
-- Linux CLI
-- XAMPP
-- UFW
-- Virustotal
-- Steghide
+I'm a cybersecurity enthusiats with a passion for building secure, resilient infrastructure. I work as a SOC Analyst Intern  at HSC Consult, investigating threats, analyzing logs, and keeping systems safe. Outside of that, I build things — containerized applications, cloud deployments, automated pipelines, and security tooling.
 
-## Projects
-- Network Traffic Analysis using Wireshark
-- Nmap Vulnerability Scanning
-- Brute Force Attack Analysis
-- Linux User & Permission Hardening
-- Firewall Configuration & Testing
-- Malware Behavior Analysis
-- Hiding files in images and extracting 
+---
 
-##  Contact
-- GitHub: https://github.com/Oluwaferanmi-IR
-- LinkedIn: https://www.linkedin.com/in/oluwaferanmi-olajide-02034b20a/
-- X: https://x.com/cyber_G33
-- Whatsapp: +2348133745208
-- CV
-  ![NEW RESUME_page-0001](https://github.com/user-attachments/assets/efc476b5-928e-4e0e-9670-002de84c8e54)
+## What I Do
 
+🔐 Threat Detection & Incident Response — SIEM monitoring, log analysis (Windows Sysmon, AWS CloudTrail), memory forensics with Volatility, and malware/CTI analysis
+
+☁️ Cloud & DevOps — AWS EC2, Docker/Docker Compose, Nginx reverse proxy, GitHub Actions CI/CD with automated security scanning (Trivy)
+
+🛡️ Security Engineering — Wazuh SIEM, File Integrity Monitoring, VirusTotal API integration, iptables-based IP banning, vulnerability scanning
+
+🌐 Systems Administration — Linux (Ubuntu/Kali), server hardening, UFW, SSL/TLS, PM2, DNS configuration
+
+📡 Networking — Protocol analysis (Wireshark), TCP/IP, LAN/Wi-Fi troubleshooting, SSH, HTTP/FTP/POP3
+
+---
+
+## Tech Stack
+|-----|----|-----|
+
+Security     Wazuh · Volatility · Wireshark · Sysmon · VirusTotal API · Trivy
+Cloud        AWS EC2 · S3 · IAM · CloudTrail
+DevOps       Docker · Docker Compose · GitHub Actions · Nginx · PM2
+Languages    Python · Bash · YAML
+OS           Ubuntu · Kali Linux · Windows Server
+Protocols    HTTP/S · SSH · FTP · DNS · TCP/IP
+
+Certifications & Training
+
+🟦 CompTIA Security+ (in progress)
+🔬 Hands-on labs: Memory forensics, AWS breach investigation, malware analysis, network protocol analysis
+📚 HNG DevOps Internship — Stages 0–3 completed
+
+
+Let's Connect
+Show Image
+Show Image
+
+"Security is not a product, but a process." — Bruce Schneier

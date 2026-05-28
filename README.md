@@ -54,6 +54,8 @@ I'm a cybersecurity enthusiats with a passion for building secure, resilient inf
 
 🟦 Networking Device and configurations --- CIsco
 
+🟦 Endpoint Security --- Cisco
+
 🟦 Cybersecurity --- GOMYCCCODE
 
 🟦 Tryhackme

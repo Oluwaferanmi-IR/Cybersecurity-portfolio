@@ -40,3 +40,8 @@
 ## - CompTIA Security+
 
 <img width="720" height="556" alt="image" src="https://github.com/user-attachments/assets/d927fbc4-e52a-447c-a219-a3673663a71b" />
+
+## - SOC ANALYST Internship
+
+<img width="1754" height="1241" alt="HSC Certificate Olajide Oluwaferanmi Marvellous_page-0001" src="https://github.com/user-attachments/assets/6c6d1799-298a-4887-aa5c-92f2a49824df" />
+
